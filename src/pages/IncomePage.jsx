@@ -6,15 +6,15 @@ export default function IncomePage({ finances }) {
   const { transactions, categories, addTransaction, deleteTransaction, addCategory } = finances;
   const incomes = transactions.filter(t => t.type === 'income');
 
-  const [form, setForm] = useState({ source: '', category: categories.income[0] || '', amount: '', date: getTodayString(), description: '' });
+  const [form, setForm] = useState({ category: categories.income[0] || '', amount: '', date: getTodayString(), description: '' });
   const [newCat, setNewCat] = useState('');
   const [showNewCat, setShowNewCat] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!form.amount || Number(form.amount) <= 0) return;
-    addTransaction('income', { ...form, source: form.source || form.category });
-    setForm({ source: '', category: categories.income[0] || '', amount: '', date: getTodayString(), description: '' });
+    addTransaction('income', form);
+    setForm({ category: categories.income[0] || '', amount: '', date: getTodayString(), description: '' });
   };
 
   const handleAddCategory = () => {
@@ -36,8 +36,10 @@ export default function IncomePage({ finances }) {
         <form onSubmit={handleSubmit}>
           <div className="form-row">
             <div className="form-group">
-              <label className="form-label">Fuente del ingreso</label>
-              <input className="form-input" type="text" placeholder="Ej: Trabajo, Freelance..." value={form.source} onChange={e => setForm({...form, source: e.target.value})} />
+              <label className="form-label">Categoría</label>
+              <select className="form-select" value={form.category} onChange={e => setForm({...form, category: e.target.value})}>
+                {categories.income.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+              </select>
             </div>
             <div className="form-group">
               <label className="form-label">Monto (S/)</label>
@@ -46,20 +48,15 @@ export default function IncomePage({ finances }) {
           </div>
           <div className="form-row">
             <div className="form-group">
-              <label className="form-label">Categoría</label>
-              <select className="form-select" value={form.category} onChange={e => setForm({...form, category: e.target.value})}>
-                {categories.income.map(cat => <option key={cat} value={cat}>{cat}</option>)}
-              </select>
-            </div>
-            <div className="form-group">
               <label className="form-label">Fecha</label>
               <input className="form-input" type="date" value={form.date} onChange={e => setForm({...form, date: e.target.value})} />
             </div>
+            <div className="form-group">
+              <label className="form-label">Descripción (opcional)</label>
+              <input className="form-input" type="text" placeholder="Nota breve..." value={form.description} onChange={e => setForm({...form, description: e.target.value})} />
+            </div>
           </div>
-          <div className="form-group">
-            <label className="form-label">Descripción (opcional)</label>
-            <input className="form-input" type="text" placeholder="Nota breve..." value={form.description} onChange={e => setForm({...form, description: e.target.value})} />
-          </div>
+
           <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
             <button type="submit" className="btn btn-primary"><Plus size={16} /> Agregar Ingreso</button>
             <button type="button" className="btn btn-secondary btn-sm" onClick={() => setShowNewCat(!showNewCat)}>
@@ -90,8 +87,8 @@ export default function IncomePage({ finances }) {
           {incomes.map(t => (
             <div key={t.id} className="transaction-item">
               <div className="transaction-info">
-                <span className="transaction-category">{t.source || t.category}</span>
-                <span className="transaction-desc">{t.category}{t.description ? ` · ${t.description}` : ''}</span>
+                <span className="transaction-category">{t.category}</span>
+                <span className="transaction-desc">{t.description || 'Sin descripción'}</span>
                 <span className="transaction-date">{formatDate(t.date)}</span>
               </div>
               <div className="transaction-right">

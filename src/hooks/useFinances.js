@@ -14,7 +14,6 @@ export function useFinances() {
       type,
       amount: Number(data.amount),
       category: data.category,
-      source: data.source || '',
       description: data.description || '',
       date: data.date || getTodayString(),
     };
