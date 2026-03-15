@@ -1,5 +1,4 @@
 import { formatCurrency } from '../utils/constants';
-import { groupByDay } from '../utils/calculations';
 import { Wallet, CircleDollarSign, TrendingUp, TrendingDown, Landmark, BarChart2 } from 'lucide-react';
 
 export default function DashboardPage({ finances }) {
