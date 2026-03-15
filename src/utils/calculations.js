@@ -5,6 +5,7 @@ import { ANNUAL_INTEREST_RATE } from './constants';
  * Fórmula: M = P × (1 + r/12)^n
  * P = monto ahorrado, r = tasa anual, n = meses
  */
+
 export const calculateCompoundInterest = (principal, startDate, endDate, annualRate = ANNUAL_INTEREST_RATE) => {
   const start = new Date(startDate);
   const end = new Date(endDate);

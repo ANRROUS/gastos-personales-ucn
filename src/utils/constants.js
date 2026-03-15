@@ -1,6 +1,6 @@
 export const DEFAULT_CATEGORIES = {
-  income: ['Salario', 'Freelance', 'Ventas', 'Regalo', 'Otro'],
-  expense: ['Comida', 'Transporte', 'Entretenimiento', 'Salud', 'Educación', 'Otro']
+  income: ['Salario', 'Freelance', 'Ventas', 'Regalo'],
+  expense: ['Comida', 'Transporte', 'Entretenimiento', 'Salud', 'Educación']
 };
 
 export const SAVINGS_RATES = [10, 20, 30];

@@ -1,6 +1,5 @@
 import { formatCurrency } from '../utils/constants';
 import { groupByDay } from '../utils/calculations';
-import DailyChart from '../components/Charts/DailyChart';
 import { Wallet, CircleDollarSign, TrendingUp, TrendingDown, Landmark, BarChart2 } from 'lucide-react';
 
 export default function DashboardPage({ finances }) {
@@ -12,16 +11,6 @@ export default function DashboardPage({ finances }) {
     const diff = (now - d) / (1000 * 60 * 60 * 24);
     return diff <= 30;
   });
-
-  const expenseData = groupByDay(last30, 'expense');
-
-  const chartData = {};
-  expenseData.forEach(d => { chartData[d.date] = { date: d.date, gastos: d.total }; });
-  
-  const dailyData = Object.values(chartData)
-    .map(d => ({ date: d.date, gastos: d.gastos || 0 }))
-    .sort((a, b) => a.date.localeCompare(b.date))
-    .slice(-14);
 
   return (
     <div className="fade-in">
@@ -52,8 +41,6 @@ export default function DashboardPage({ finances }) {
           <div className="stat-value savings">{formatCurrency(totalSaved)}</div>
         </div>
       </div>
-
-      <DailyChart data={dailyData} />
 
       {transactions.length === 0 && (
         <div className="empty-state">
