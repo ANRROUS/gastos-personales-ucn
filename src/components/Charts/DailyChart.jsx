@@ -1,6 +1,6 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { formatCurrency } from '../../utils/constants';
-import { BarChart2, TrendingUp, TrendingDown } from 'lucide-react';
+import { BarChart2, TrendingDown } from 'lucide-react';
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
@@ -15,10 +15,7 @@ const CustomTooltip = ({ active, payload, label }) => {
         <p style={{ fontWeight: 600, marginBottom: '4px', color: 'var(--text-primary)' }}>{label}</p>
         {payload.map((p, i) => (
           <p key={i} style={{ color: p.color, display: 'flex', alignItems: 'center', gap: '4px' }}>
-            {p.name === 'ingresos'
-              ? <TrendingUp size={14} />
-              : <TrendingDown size={14} />
-            }
+            <TrendingDown size={14} />
             {p.name}: {formatCurrency(p.value)}
           </p>
         ))}
@@ -33,7 +30,7 @@ export default function DailyChart({ data }) {
     return (
       <div className="chart-container">
         <h3 className="chart-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <BarChart2 size={18} /> Ingresos vs Gastos (últimos 14 días)
+          <BarChart2 size={18} /> Gastos Diarios (últimos 14 días)
         </h3>
         <div className="empty-state"><p>No hay datos suficientes para el gráfico</p></div>
       </div>
@@ -48,7 +45,7 @@ export default function DailyChart({ data }) {
   return (
     <div className="chart-container">
       <h3 className="chart-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <BarChart2 size={18} /> Ingresos vs Gastos (últimos 14 días)
+        <BarChart2 size={18} /> Gastos Diarios (últimos 14 días)
       </h3>
       <div style={{ width: '100%', height: 280 }}>
         <ResponsiveContainer>
@@ -58,7 +55,6 @@ export default function DailyChart({ data }) {
             <YAxis tick={{ fill: '#94a3b8', fontSize: 11 }} />
             <Tooltip content={<CustomTooltip />} />
             <Legend wrapperStyle={{ fontSize: '0.8rem', color: '#94a3b8' }} />
-            <Bar dataKey="ingresos" fill="#06b6d4" radius={[4, 4, 0, 0]} />
             <Bar dataKey="gastos" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>

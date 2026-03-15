@@ -5,7 +5,6 @@ import DashboardPage from './pages/DashboardPage';
 import IncomePage from './pages/IncomePage';
 import ExpensePage from './pages/ExpensePage';
 import SavingsPage from './pages/SavingsPage';
-import ReportsPage from './pages/ReportsPage';
 
 function AppContent() {
   const finances = useFinances();
@@ -18,7 +17,6 @@ function AppContent() {
           <Route path="/income" element={<IncomePage finances={finances} />} />
           <Route path="/expenses" element={<ExpensePage finances={finances} />} />
           <Route path="/savings" element={<SavingsPage finances={finances} />} />
-          <Route path="/reports" element={<ReportsPage finances={finances} />} />
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </div>

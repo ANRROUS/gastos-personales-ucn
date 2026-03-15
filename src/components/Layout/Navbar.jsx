@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Wallet, CreditCard, PiggyBank, BarChart3 } from 'lucide-react';
+import { LayoutDashboard, Wallet, CreditCard, PiggyBank } from 'lucide-react';
 
 export default function Navbar() {
   return (
@@ -19,10 +19,6 @@ export default function Navbar() {
       <NavLink to="/savings" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
         <PiggyBank size={20} className="nav-icon" />
         Ahorro
-      </NavLink>
-      <NavLink to="/reports" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-        <BarChart3 size={20} className="nav-icon" />
-        Reportes
       </NavLink>
     </nav>
   );

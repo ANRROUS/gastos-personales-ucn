@@ -13,14 +13,13 @@ export default function DashboardPage({ finances }) {
     return diff <= 30;
   });
 
-  const incomeData = groupByDay(last30, 'income');
   const expenseData = groupByDay(last30, 'expense');
 
   const chartData = {};
-  incomeData.forEach(d => { chartData[d.date] = { ...chartData[d.date], date: d.date, ingresos: d.total }; });
-  expenseData.forEach(d => { chartData[d.date] = { ...chartData[d.date], date: d.date, gastos: d.total }; });
+  expenseData.forEach(d => { chartData[d.date] = { date: d.date, gastos: d.total }; });
+  
   const dailyData = Object.values(chartData)
-    .map(d => ({ date: d.date, ingresos: d.ingresos || 0, gastos: d.gastos || 0 }))
+    .map(d => ({ date: d.date, gastos: d.gastos || 0 }))
     .sort((a, b) => a.date.localeCompare(b.date))
     .slice(-14);
 
